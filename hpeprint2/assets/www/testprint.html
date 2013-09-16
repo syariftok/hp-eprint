@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<title></title>
+		
+		<link rel="stylesheet" href="css/jquery.mobile-1.2.0.min.css" />
+		<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="js/cordova-2.5.0.js"></script>
+	 	<script type="text/javascript" src="js/jquery.mobile-1.2.0.min.js"></script>
+	 
+		<script type="text/javascript">
+		var PrintPlugin = {
+			    callNativeFunction: function (success, fail, resultType) {
+			    	return cordova.exec(success, fail, "PrintPlugin", "print", [resultType]);
+			    }
+		     
+		}
+
+		function doPrint(){
+			PrintPlugin.callNativeFunction( nativePluginResultHandler, nativePluginErrorHandler, '' );
+		}
+		                        
+
+		function nativePluginErrorHandler (error) {
+		   alert("ERROR: \r\n"+error );
+		}
+
+		function nativePluginResultHandler(result) {
+			     alert(result);
+		 }
+
+		
+
+		document.addEventListener("deviceready", onDeviceReady, false);
+		    
+		function onDeviceReady() {
+			navigator.notification.activityStart("Processing Data....", "Loading");
+	    	setTimeout(function (){
+	    		doPrint();
+				navigator.notification.activityStop();
+		}, 1000 ); 
+			
+		}
+
+		</script>
+		
+	</head>
+			<body bgcolor="white">
+			<div >
+			  test printing!!!
+			</div>
+	</body>
+</html>
